@@ -1,5 +1,5 @@
 
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,259 +7,461 @@
 <title>DR ANKIT 3D WORLD</title>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
 body {
-    margin: 0;
-    overflow: hidden;
-    background: #080b18;
-    font-family: Arial;
+  background: #080b18;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
-h1 {
-    position: absolute;
-    top: 20px;
-    width: 100%;
-    text-align: center;
-    color: white;
-    z-index: 2;
-}
-p {
-    position: absolute;
-    top: 65px;
-    width: 100%;
-    text-align: center;
-    color: #00ffff;
-    z-index: 2;
+
+#three-scene {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .navbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 22px 5%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(5, 10, 30, 0.8);
-    border-bottom: 1px solid #00ffff;
-    z-index: 10;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(8,11,24,.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #ffb6c1;
+  z-index: 10;
 }
 
 .logo {
-    color: #00ffff;
-    font-size: 25px;
-    font-weight: bold;
-    letter-spacing: 3px;
-    text-shadow: 0 0 12px #00ffff;
+  color: #ffb6c1;
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  animation: logoGlow 2s infinite alternate;
 }
 
 .nav-links {
-    display: flex;
-    gap: 25px;
+  display: flex;
+  gap: 25px;
 }
 
 .nav-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    transition: 0.3s;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  transition: .3s;
 }
 
 .nav-links a:hover {
-    color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
+  color: #ffb6c1;
+  text-shadow: 0 0 12px #ffb6c1;
 }
 
-/* Mobile Responsive Design */
-
-@media (max-width: 600px) {
-    .navbar {
-        padding: 15px 10px;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .logo {
-        font-size: 21px;
-    }
-
-    .nav-links {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .nav-links a {
-        font-size: 13px;
-    }
+section {
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
+.hero-content {
+  width: 100%;
+  animation: appear 1.5s ease;
+}
+
+.hero h1 {
+  color: #ffb6c1;
+  font-size: clamp(38px, 8vw, 78px);
+  letter-spacing: 3px;
+  text-shadow:
+    0 0 10px #ffb6c1,
+    0 0 25px #ff69b4,
+    0 0 50px #ff69b4;
+  animation: floatName 3s ease-in-out infinite;
+}
+
+.hero p {
+  color: #ffdce5;
+  margin-top: 25px;
+  line-height: 1.8;
+  font-size: 15px;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid #ffb6c1;
+  color: #ffb6c1;
+  padding: 13px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: .3s;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #ffb6c1;
+  color: #080b18;
+  box-shadow: 0 0 25px #ff69b4;
+}
+
+.info-card {
+  max-width: 700px;
+  width: 100%;
+  padding: 35px;
+  background: rgba(15,20,45,.85);
+  border: 1px solid #ffb6c1;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(255,182,193,.15);
+  backdrop-filter: blur(12px);
+}
+
+.info-card h2 {
+  color: #ffb6c1;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.info-card p {
+  color: #e5dce5;
+  line-height: 1.8;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.project {
+  padding: 25px;
+  border: 1px solid #ffb6c1;
+  border-radius: 14px;
+  background: rgba(255,182,193,.06);
+  transition: .3s;
+}
+
+.project:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(255,182,193,.3);
+}
+
+.project h3 {
+  color: #ffb6c1;
+  margin-bottom: 10px;
+}
+
+footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 25px;
+  color: #ffb6c1;
+  border-top: 1px solid #ffb6c1;
+}
+
+@keyframes floatName {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+@keyframes logoGlow {
+  from { text-shadow: 0 0 5px #ffb6c1; }
+  to { text-shadow: 0 0 20px #ff69b4; }
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width:600px) {
+  .navbar {
+    padding: 15px 10px;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .logo { font-size: 20px; }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .nav-links a { font-size: 12px; }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card { padding: 25px 17px; }
+}
 </style>
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="logo">DR ANKIT</div>
+<canvas id="three-scene"></canvas>
 
-    <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Projects</a>
-        <a href="#">Contact</a>
-    </div>
+<nav class="navbar">
+  <div class="logo">DR ANKIT</div>
+
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
 </nav>
 
-<h1>DR ANKIT 3D WORLD</h1>
-<p>Move your mouse to rotate the cube | Scroll to zoom</p>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>DR ANKIT</h1>
+    <p>
+      WELCOME TO MY 3D WORLD<br>
+      Explore the Future of Digital Creativity
+    </p>
+
+    <div class="buttons">
+      <button class="btn" id="colorBtn">Change Cube Colour</button>
+      <button class="btn" onclick="location.href='#about'">
+        Explore More
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="info-card">
+    <h2>About My World</h2>
+    <p>
+      Welcome to DR ANKIT 3D WORLD.
+      This is a creative digital experience
+      built with HTML, CSS, JavaScript and Three.js.
+      Explore interactive 3D animations and
+      futuristic visual effects.
+    </p>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="info-card">
+    <h2>My Projects</h2>
+
+    <div class="project-grid">
+      <div class="project">
+        <h3>3D World</h3>
+        <p>Interactive 3D experience.</p>
+      </div>
+
+      <div class="project">
+        <h3>Web Design</h3>
+        <p>Modern digital interfaces.</p>
+      </div>
+
+      <div class="project">
+        <h3>JavaScript</h3>
+        <p>Creative coding projects.</p>
+      </div>
+
+      <div class="project">
+        <h3>Future Ideas</h3>
+        <p>New digital experiments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="info-card">
+    <h2>Contact</h2>
+    <p>
+      Thanks for visiting DR ANKIT 3D WORLD.
+      More creative projects coming soon!
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2026 DR ANKIT 3D WORLD | All Rights Reserved
+</footer>
 
 <script type="module">
 import * as THREE from
 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
 
+const canvas = document.getElementById('three-scene');
+
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x080b18);
 
 const camera = new THREE.PerspectiveCamera(
-75, window.innerWidth / window.innerHeight, 0.1, 1000
+  70, window.innerWidth / window.innerHeight, 0.1, 100
 );
+
 camera.position.z = 6;
 
-const renderer = new THREE.WebGLRenderer({antialias:true});
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  antialias: true,
+  alpha: true
+});
+
+renderer.setPixelRatio(
+  Math.min(window.devicePixelRatio, 1.5)
+);
+
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
 
 const geometry = new THREE.BoxGeometry(2,2,2);
+
 const material = new THREE.MeshStandardMaterial({
-color: 0x00aaff,
-metalness: 0.5,
-roughness: 0.25
+  color: 0xffb6c1,
+  metalness: 0.65,
+  roughness: 0.2
 });
 
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
-    // Neon glow effect
-const glowLight = new THREE.PointLight(0x00ffff, 150);
-glowLight.position.set(-3, 2, 4);
-scene.add(glowLight);
 
-// Cube edges
 const edges = new THREE.EdgesGeometry(geometry);
-const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x00ffff,
-    transparent: false,
-    linewidth: 3
+
+const edgeMaterial = new THREE.LineBasicMaterial({
+  color: 0xffdce5
 });
 
-const cubeEdges = new THREE.LineSegments(edges, lineMaterial);
-cube.add(cubeEdges);
-const colors = [
-    0x00aaff,
-    0xff0000,
-    0x00ff00,
-    0xffff00,
-    0xff00ff,
-    0xffffff
-];
+cube.add(new THREE.LineSegments(edges, edgeMaterial));
 
-let colorIndex = 0;
+scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 
-renderer.domElement.addEventListener('click', () => {
-    colorIndex = (colorIndex + 1) % colors.length;
-    cube.material.color.setHex(colors[colorIndex]);
+const pinkLight = new THREE.PointLight(0xff69b4, 90);
+pinkLight.position.set(-3,3,4);
+scene.add(pinkLight);
+
+const whiteLight = new THREE.PointLight(0xffffff, 60);
+whiteLight.position.set(3,-2,4);
+scene.add(whiteLight);
+
+// Floating particles
+
+const particleCount = 120;
+const positions = new Float32Array(particleCount * 3);
+
+for(let i = 0; i < particleCount; i++) {
+  positions[i*3] = (Math.random() - .5) * 16;
+  positions[i*3+1] = (Math.random() - .5) * 12;
+  positions[i*3+2] = (Math.random() - .5) * 8;
+}
+
+const particleGeometry = new THREE.BufferGeometry();
+particleGeometry.setAttribute(
+  'position',
+  new THREE.BufferAttribute(positions,3)
+);
+
+const particleMaterial = new THREE.PointsMaterial({
+  color: 0xffb6c1,
+  size: 0.045,
+  transparent: true,
+  opacity: 0.8
 });
-const light = new THREE.PointLight(0xffffff, 100);
-light.position.set(3,3,5);
-scene.add(light);
 
-scene.add(new THREE.AmbientLight(0xffffff, 1));
+const particles = new THREE.Points(
+  particleGeometry,
+  particleMaterial
+);
+
+scene.add(particles);
+
+// Rotation controls
 
 let targetX = 0;
 let targetY = 0;
 
-window.addEventListener('mousemove', (event) => {
-targetY = (event.clientX / window.innerWidth - 0.5) * 3;
-targetX = (event.clientY / window.innerHeight - 0.5) * 3;
+window.addEventListener('pointermove', (event) => {
+  targetY = (event.clientX / window.innerWidth - .5) * 1.5;
+  targetX = (event.clientY / window.innerHeight - .5) * 1.5;
 });
 
 window.addEventListener('wheel', (event) => {
-camera.position.z += event.deltaY * 0.005;
-camera.position.z = THREE.MathUtils.clamp(
-camera.position.z, 3, 12
-);
+  camera.position.z += event.deltaY * .003;
+  camera.position.z = THREE.MathUtils.clamp(
+    camera.position.z, 4, 10
+  );
+}, { passive: true });
+
+// Cube colours
+
+const colors = [
+  0xffb6c1,
+  0xff69b4,
+  0x00ffff,
+  0x9966ff,
+  0xffffff,
+  0xff99cc
+];
+
+let colorIndex = 0;
+
+document.getElementById('colorBtn').addEventListener('click', () => {
+  colorIndex = (colorIndex + 1) % colors.length;
+  cube.material.color.setHex(colors[colorIndex]);
 });
 
+// Animation
+
 function animate() {
-requestAnimationFrame(animate);
+  requestAnimationFrame(animate);
 
-cube.rotation.x += (targetX - cube.rotation.x) * 0.05;
-cube.rotation.y += (targetY - cube.rotation.y) * 0.05;
+  cube.rotation.x += (targetX - cube.rotation.x) * .035;
+  cube.rotation.y += (targetY - cube.rotation.y) * .035;
 
-renderer.render(scene, camera);
+  cube.rotation.x += 0.002;
+  cube.rotation.y += 0.003;
+
+  particles.rotation.y += 0.0005;
+  particles.rotation.x += 0.0002;
+
+  renderer.render(scene,camera);
 }
 
 animate();
+
+// Responsive
 
 window.addEventListener('resize', () => {
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio,1.5)
+  );
 });
-</script>
-
-<style>
-#starCanvas {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 5;
-}
-</style>
-
-<canvas id="starCanvas"></canvas>
-
-<script>
-const canvas = document.getElementById("starCanvas");
-const ctx = canvas.getContext("2d");
-
-let stars = [];
-
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  stars = Array.from({ length: 35 }, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    size: Math.random() * 2 + 1,
-    speed: Math.random() * 0.5 + 0.2
-  }));
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  stars.forEach(star => {
-    ctx.beginPath();
-    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-    ctx.fillStyle = "#00eaff";
-    ctx.fill();
-
-    star.y -= star.speed;
-
-    if (star.y < 0) {
-      star.y = canvas.height;
-    }
-  });
-
-  requestAnimationFrame(animate);
-}
-
-window.addEventListener("resize", resize);
-resize();
-animate();
 </script>
 
 </body>
