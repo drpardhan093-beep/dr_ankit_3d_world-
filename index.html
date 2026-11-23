@@ -207,5 +207,60 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 });
 </script>
 
+<style>
+#starCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+</style>
+
+<canvas id="starCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById("starCanvas");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  stars = Array.from({ length: 35 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2 + 1,
+    speed: Math.random() * 0.5 + 0.2
+  }));
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  stars.forEach(star => {
+    ctx.beginPath();
+    ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+    ctx.fillStyle = "#00eaff";
+    ctx.fill();
+
+    star.y -= star.speed;
+
+    if (star.y < 0) {
+      star.y = canvas.height;
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", resize);
+resize();
+animate();
+</script>
+
 </body>
 </html>
