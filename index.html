@@ -62,6 +62,19 @@ roughness: 0.25
 
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+    // Neon glow effect
+const glowLight = new THREE.PointLight(0x00ffff, 80);
+glowLight.position.set(-3, 2, 4);
+scene.add(glowLight);
+
+// Cube edges
+const edges = new THREE.EdgesGeometry(geometry);
+const lineMaterial = new THREE.LineBasicMaterial({
+    color: 0x00ffff
+});
+
+const cubeEdges = new THREE.LineSegments(edges, lineMaterial);
+cube.add(cubeEdges);
 const colors = [
     0x00aaff,
     0xff0000,
