@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -62,7 +62,21 @@ roughness: 0.25
 
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+const colors = [
+    0x00aaff,
+    0xff0000,
+    0x00ff00,
+    0xffff00,
+    0xff00ff,
+    0xffffff
+];
 
+let colorIndex = 0;
+
+renderer.domElement.addEventListener('click', () => {
+    colorIndex = (colorIndex + 1) % colors.length;
+    cube.material.color.setHex(colors[colorIndex]);
+});
 const light = new THREE.PointLight(0xffffff, 100);
 light.position.set(3,3,5);
 scene.add(light);
